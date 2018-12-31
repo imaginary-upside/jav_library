@@ -44,5 +44,9 @@ module JavLibrary
     def genres
       @doc.css("#video_genres .genre").map(&:content)
     end
+
+    def close
+      @browser.close
+    end
   end
 end
