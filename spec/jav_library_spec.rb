@@ -29,4 +29,6 @@ RSpec.describe JavLibrary do
     genres = ["Restraint", "Enema", "Best, Omnibus", "4HR+"]
     expect(client.genres).to eq(genres)
   end
+
+  client.close
 end
