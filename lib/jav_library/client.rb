@@ -18,8 +18,13 @@ module JavLibrary
       @browser.cookies.add "over18", "18"
 
       # For cloudflare's ddos checking
-      while @browser.html.include? "<title>Just a moment...</title>"
+      begin
+        while @browser.html.include? "<title>Just a moment...</title>"
+          sleep 0.1
+        end
+      rescue
         sleep 0.1
+        retry
       end
 
       # Wait until page is loaded
@@ -50,7 +55,8 @@ module JavLibrary
     end
 
     def cover
-      @doc.at_css('#video_jacket_img').attr('src').sub("http", "https")
+      src = @doc.at_css('#video_jacket_img').attr('src')
+      'https:' + src.sub('http:', '')
     end
 
     def release_date
