@@ -5,23 +5,40 @@ module JavLibrary
   HOST = "http://www.javlibrary.com/en/vl_searchbyid.php?keyword="
   
   class Client
+    attr_reader :success
+
     def initialize
-      @browser = Watir::Browser.new :firefox
+      @browser = Watir::Browser.new :firefox, 'pageLoadStrategy': 'eager'
       # Disable alerts
-      @browser.execute_script "window.alert = () => {}";
+      @browser.execute_script "window.alert = () => {}"
     end
 
     def load(code)
       @browser.goto HOST + code
       @browser.cookies.add "over18", "18"
-      
+
       # For cloudflare's ddos checking
-      sleep 10
       while @browser.html.include? "<title>Just a moment...</title>"
         sleep 0.1
       end
 
+      # Wait until page is loaded
+      until @browser.html.include? 'leftmenu'
+        sleep 0.1
+      end
+
+      @success = !@browser.html.include?('The search term you entered is invalid.')
       @doc = Nokogiri::HTML @browser.html
+      
+      # if multiple search results
+      puts @doc.css('.videos').length
+      if @doc.css('.videos').length > 1
+        url = 'http://www.javlibrary.com/en/'
+        url += @doc.at_css('.videos a').attr('href').split('./', 2).last
+        @browser.goto url
+        @browser.cookies.add 'over18', '18' 
+        @doc = Nokogiri::HTML(@browser.html)
+      end
     end
 
     def title
