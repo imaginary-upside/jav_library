@@ -2,10 +2,6 @@ RSpec.describe JavLibrary do
   client = JavLibrary::Client.new
   client.load "RVG-081"
 
-  it "has a version number" do
-    expect(JavLibrary::VERSION).not_to be nil
-  end
-
   it "finds title" do
     expect(client.title).to eq("Anal Device Bondage Iron Restraint Anal Torture BEST Vol.1")
   end
