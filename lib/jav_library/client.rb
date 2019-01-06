@@ -36,7 +36,7 @@ module JavLibrary
       @doc = Nokogiri::HTML @browser.html
       
       # if multiple search results
-      if @doc.css('.videos').length > 1
+      if @doc.css('.videos .video').length > 1
         url = 'http://www.javlibrary.com/en/'
         url += @doc.at_css('.videos a').attr('href').split('./', 2).last
         @browser.goto url
