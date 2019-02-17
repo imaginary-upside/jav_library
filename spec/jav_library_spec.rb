@@ -1,6 +1,9 @@
 RSpec.describe JavLibrary do
   client = JavLibrary::Client.new
   client.load "RVG-081"
+  
+  client2 = JavLibrary::Client.new
+  client2.load "SSNI-100"
 
   it "finds title" do
     expect(client.title).to eq("Anal Device Bondage Iron Restraint Anal Torture BEST Vol.1")
@@ -26,5 +29,11 @@ RSpec.describe JavLibrary do
     expect(client.genres).to eq(genres)
   end
 
+  it "finds only the latest actress name" do
+    cast = ["RION"]
+    expect(client2.cast).to eq(cast)
+  end
+
   client.close
+  client2.close
 end

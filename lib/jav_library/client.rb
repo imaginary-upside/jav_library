@@ -51,7 +51,7 @@ module JavLibrary
     end
 
     def cast
-      @doc.css('#video_cast .star a').map(&:content)
+      @doc.css('#video_cast .star a').map {|node| node.content.split('(', 2).first.strip }
     end
 
     def cover
