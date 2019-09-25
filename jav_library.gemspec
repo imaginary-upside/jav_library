@@ -5,11 +5,11 @@ require "jav_library/version"
 Gem::Specification.new do |spec|
   spec.name          = "jav_library"
   spec.version       = JavLibrary::VERSION
-  spec.authors       = ["thighstump"]
-  spec.email         = ["thighstump@protonmail.ch"]
+  spec.authors       = ["imaginary-upside"]
+  spec.email         = ["imaginary-upside@protonmail.ch"]
 
   spec.summary       = "JavLibrary client"
-  spec.license       = "MIT"
+  spec.license       = "AGPL-3.0-only"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
